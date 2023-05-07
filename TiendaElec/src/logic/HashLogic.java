@@ -1,15 +1,16 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class HashLogic {
     
-    ArrayList<HashLogic> objetos = new ArrayList();
+    Hashtable<Integer, HashLogic> objetos = new Hashtable<>();
+    
     public int id;
     public String nombre;
     public String color;
     public int cantidad;
-    public int indice = -1;
     
     public HashLogic(){
     }
@@ -23,73 +24,48 @@ public class HashLogic {
     
     //Metodos
     public void crear(int id, String nombre, String color, int cantidad ){
-        objetos.add(new HashLogic(id,nombre,color,cantidad));
+        objetos.put(id, new HashLogic(id,nombre,color,cantidad));
     }
     
     //Metodos que leen los atributos y retornan el dato
-    public int leerId(int i){
-        HashLogic leeId = (HashLogic) objetos.get(i);
+    public int leerId(int clave){
+        HashLogic leeId = (HashLogic) objetos.get(clave);
         return leeId.getId();
     }
     
-    public String leerNombre(int i){
-        HashLogic leeNombre = (HashLogic) objetos.get(i);
+    public String leerNombre(int clave){
+        HashLogic leeNombre = (HashLogic) objetos.get(clave);
         return leeNombre.getNombre();
     }
     
-    public String leerColor(int i){
-        HashLogic leeColor = (HashLogic) objetos.get(i);
+    public String leerColor(int clave){
+        HashLogic leeColor = (HashLogic) objetos.get(clave);
         return leeColor.getColor();
     }
     
-    public int leerCantidad(int i){
-        HashLogic leeCantidad = (HashLogic) objetos.get(i);
+    public int leerCantidad(int clave){
+        HashLogic leeCantidad = (HashLogic) objetos.get(clave);
         return leeCantidad.getCantidad();
     }
     
     //Metodo que actualiza info
-    public void actualizaDatos(int indice, int id, String nombre, String color, int cantidad){
-        HashLogic actualiza = (HashLogic) objetos.get(indice);
+    public void actualizaDatos(int identificadorConsulta, int id, String nombre, String color, int cantidad){
+        HashLogic actualiza = (HashLogic) objetos.get(identificadorConsulta);
         actualiza.setId(id);
         actualiza.setNombre(nombre);
         actualiza.setColor(color);
         actualiza.setCantidad(cantidad);
     }
     
-    //Retorna posicion
-    public int posicion(int id){
-        for(int i=0;i<objetos.size();i++){
-            HashLogic posicion = (HashLogic) objetos.get(i);
-            
-            if(posicion.getId() == id){
-                indice = objetos.indexOf(posicion);
-            }
-            else{
-                //return -1;
-            }
-        }
-        return indice;
-    }
-    
     //Elimina objeto
-    public void eliminar(int id){
-        for(int i=0;i<objetos.size();i++){
-            HashLogic posicion = (HashLogic) objetos.get(i);
-            
-            if(posicion.getId() == id){
-                indice = objetos.indexOf(posicion);
-                objetos.remove(indice);
-            }
-            else{
-                System.out.println("No se encontro obj");
-            }
-        }
+    public void eliminaObj(int clave){
+        HashLogic delObj = (HashLogic) objetos.get(clave);
+        delObj.setId(0);
+        delObj.setNombre("0");
+        delObj.setColor("0");
+        delObj.setCantidad(0);
     }
     
-    public ArrayList<HashLogic> getObjetos() {
-        return objetos;
-    }
-
     //Getters
     public int getId() {
         return id;
